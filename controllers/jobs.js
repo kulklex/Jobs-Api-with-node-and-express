@@ -42,5 +42,5 @@ const deleteJob = async(req, res) => {
     }
     res.status(StatusCodes.OK).json('Job DELETED')
 }
- // https://github.com/kulklex/Jobs-Api-with-node-and-express.git
+
 module.exports = {getAllJobs, getJob, createJob, updateJob, deleteJob}
