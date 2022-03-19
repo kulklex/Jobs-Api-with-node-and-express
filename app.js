@@ -2,9 +2,15 @@ require('dotenv').config();
 require('express-async-errors');
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser')
+const path = require('path')
 
-//database connection
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: false}))
+
+//database connections
 require('./db/connect')
+
 
 //extra security packages
 const helmet = require('helmet')
@@ -27,22 +33,35 @@ app.use(rateLimit({
 }))
 
 app.use(express.json());
-app.use(helmet())
+// app.use(helmet({
+//   contentSecurityPolicy: {
+//     defaultSrc: ["'self'"],
+//     scriptSrc: ["'self'", "https://code.jquery.com/jquery-3.6.0.min.js", "https://code.jquery.com/jquery-3.6.0.min.js"],
+//     styleSrc: ["'self'", "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"]
+//   }
+// }))
 app.use(cors())
 app.use(xss())
 
 
-// routes
-app.get('/', (req, res) => {
-  res.send('jobs api');
-});
+
+
+//ejs
+app.set('view engine', 'ejs')
+
+
+//Public folder
+
+
+app.set("views", path.join(__dirname, "views"));
+app.use(express.static(`${__dirname}/public`));
 
 const auth = require('./routes/auth')
-const jobs = require('./routes/jobs')
+const jobs = require('./routes/jobs');
+const uploadFile = require('./routes/upload');
+app.use('/api/v1/upload', uploadFile)
 app.use('/api/v1/auth', auth)
 app.use('/api/v1/jobs', authenticateUser, jobs)
-
-
 
 
 

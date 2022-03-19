@@ -6,9 +6,13 @@ const connectDB =  mongoose.connect(process.env.MONGO_URI, {
     useCreateIndex: true,
     useFindAndModify: false,
     useUnifiedTopology: true,
-  }).then(() => {
+    }).then(() => {
     console.log('Connected to MongoDB')
   }).catch((err) => {console.log('Failed to connect'), err} )
 
+
+
+
+  
 
 module.exports = connectDB
