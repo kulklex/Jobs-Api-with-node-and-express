@@ -42,5 +42,10 @@ const deleteJob = async(req, res) => {
     }
     res.status(StatusCodes.OK).json('Job DELETED')
 }
+<<<<<<< HEAD
 
 module.exports = {getAllJobs, getJob, createJob, updateJob, deleteJob}
+=======
+ 
+module.exports = {getAllJobs, getJob, createJob, updateJob, deleteJob}
+>>>>>>> 3ebcf7e62402c96cd95ed466584b05422412ceec
